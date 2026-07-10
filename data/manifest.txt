@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "projectName": "英语表达功能训练库",
+  "coverage": [
+    "coverage_plan_01.txt"
+  ],
+  "examples": [
+    "core_examples_01.txt"
+  ],
+  "exercises": [
+    "transfer_exercises_01.txt"
+  ],
+  "materials": [
+    "supplementary_materials_01.txt"
+  ],
+  "prompts": [
+    "prompts_01.txt"
+  ]
+}

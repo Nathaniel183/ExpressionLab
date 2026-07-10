@@ -1,0 +1,100 @@
+数据格式说明
+============
+
+一、总览
+--------
+data/manifest.txt 是普通 JSON 文件；其他数据文件是 JSONL 文本：每行一个独立 JSON 对象。
+空行和以 # 开头的行会被忽略。
+
+项目载入顺序由 manifest 控制：
+- coverage：功能覆盖文件数组
+- examples：核心范例文件数组
+- exercises：迁移练习文件数组
+- materials：补充素材文件数组
+- prompts：提示词文件数组
+
+新文件只需放入 data/ 并把文件名追加到对应数组末尾。
+
+二、通用规则
+----------
+1. 文件编码必须是 UTF-8。
+2. 每个 JSON 对象必须完整位于一行。
+3. 文本内部换行应编码为 \n。
+4. id 必须在同一数据类别中唯一，建议全项目也保持唯一。
+5. 不要在 JSONL 文件外包裹数组方括号。
+6. 不要保留 Markdown 代码围栏。
+7. 字符串内部的英文双引号必须转义为 \"。
+8. 保存后刷新网页；若无法载入，查看页面内错误提示和浏览器控制台。
+
+三、coverage 记录
+---------------
+必需字段：
+id, domain, nameZh, nameEn, description, carrier, core, alternatives, priority,
+subFunctions, microFunctions, exampleIds, exerciseIds, status, coverageNote
+
+domain：shared / writing / speaking
+carrier：建议使用“完整文章”“完整回答”“功能段落”“短片段”或组合说明
+exampleIds 与 exerciseIds 用于记录当前承载内容；新增数据后可通过覆盖审计提示词重新计算。
+
+四、examples 记录
+---------------
+必需字段：
+id, titleZh, titleEn, domain, format, mainFunction, secondaryFunctions, scene,
+register, level, english, chinese, breakdown, reusablePatterns, topicMaterial,
+transferDirections, coverageIds, tags
+
+format：article / answer / paragraph / snippet
+register：spoken / neutral / formal
+breakdown：对象数组，每项为 {"label":"...","explanation":"..."}
+coverageIds：必须引用 coverage 文件中存在的 id
+
+五、exercises 记录
+----------------
+必需字段：
+id, sourceExampleId, skill, type, level, promptZh, constraints, scaffold, referenceAnswer, tags
+
+skill：shared / writing / speaking
+level：1 / 2 / 3
+sourceExampleId：应引用已有 examples.id；若确实为独立题可留空字符串
+
+六、materials 记录
+----------------
+必需字段：
+id, function, register, english, chinese, example, tags
+
+register：spoken / neutral / formal
+建议把学习单位写成语块或可替换句型，而不是孤立单词。
+
+七、prompts 记录
+--------------
+必需字段：
+id, title, category, description, prompt, featured
+
+featured：true / false
+prompt：长提示词中的真实换行应写为 \n，保存为一行 JSON。
+
+八、推荐分包命名
+--------------
+coverage_plan_02.txt
+core_examples_02.txt
+transfer_exercises_02.txt
+supplementary_materials_02.txt
+prompts_02.txt
+
+建议每次新增一个小批次，不直接覆盖 01 文件，以便回滚和对比。
+
+九、追加示例
+----------
+假设新增 core_examples_02.txt，则将 manifest 中 examples 改为：
+
+"examples": [
+  "core_examples_01.txt",
+  "core_examples_02.txt"
+]
+
+十、删除与修改
+------------
+- 修改旧记录：直接编辑原文件中的对应一行，保持 id 不变。
+- 停用旧记录：可以删除该行；但必须先检查 exercises.sourceExampleId 和 coverageIds 引用。
+- 替代旧记录：推荐保持原 id 并修订内容，避免引用失效。
+- 合并文件：仅在数据过度碎片化时进行，合并后同步修改 manifest。

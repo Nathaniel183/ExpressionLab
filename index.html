@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f5f7fb" />
+  <title>英语表达功能训练库</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-row">
+        <button class="icon-button mobile-only" id="closeSidebar" aria-label="关闭导航">×</button>
+        <div class="brand-mark">E</div>
+        <div>
+          <div class="brand-title">表达训练库</div>
+          <div class="brand-subtitle">Writing · Speaking</div>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="主导航">
+        <button class="nav-item active" data-view="home"><span>首页</span><span>⌂</span></button>
+        <button class="nav-item" data-view="coverage"><span>功能覆盖</span><span>◫</span></button>
+        <button class="nav-item" data-view="examples"><span>核心范例</span><span>▤</span></button>
+        <button class="nav-item" data-view="practice"><span>迁移练习</span><span>↗</span></button>
+        <button class="nav-item" data-view="materials"><span>补充素材</span><span>＋</span></button>
+        <button class="nav-item" data-view="prompts"><span>提示词中心</span><span>⌘</span></button>
+        <button class="nav-item" data-view="settings"><span>数据与设置</span><span>⚙</span></button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="mini-progress">
+          <div class="mini-progress-head"><span>总体掌握</span><span id="sidebarProgressText">0%</span></div>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgressFill"></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button mobile-only" id="openSidebar" aria-label="打开导航">☰</button>
+        <div>
+          <h1 id="pageTitle">首页</h1>
+          <p id="pageSubtitle">查看进度并快速进入训练</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost-button" id="themeToggle" aria-label="切换明暗主题">◐</button>
+          <button class="primary-button" id="continueButton">继续学习</button>
+        </div>
+      </header>
+
+      <section class="status-stack" id="statusStack" aria-live="polite"></section>
+      <section class="content" id="appContent">
+        <div class="loading-card">
+          <div class="spinner"></div>
+          <p>正在载入本地数据…</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <input type="file" id="importProgressInput" accept="application/json" hidden />
+
+  <script src="assets/js/data-loader.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
